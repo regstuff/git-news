@@ -14,12 +14,12 @@ $(document).ready(function() {
     
 $('h1.feed1').html('Wired')
 
-//rssurl = ['https://www.wired.com/feed/category/business/latest/rss', 'http://feeds.nytimes.com/nyt/rss/Technology']
-rssurl = ['https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.wired.com%2Ffeed%2Fcategory%2Fbusiness%2Flatest%2Frss', 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ftechcrunch.com%2Ffeed%2F']
+rssurl = ['https://www.wired.com/feed/category/business/latest/rss', 'http://feeds.nytimes.com/nyt/rss/Technology']
+
 $('div.feed1').html('<ul class="rssList">')
 var newfeed = ''
 $.each(rssurl, function (index, value) {
-    $.getJSON(value, function(data) {  
+    $.getJSON('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(value), function(data) {  
         //console.log(data['items'][0]['title'])
         newfeed = newfeed + parseFeed(data, value)
         $('div.feed1 > ul.rssList').html(newfeed)
