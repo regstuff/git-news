@@ -1,0 +1,18 @@
+html { color: #FAFAFA; background: #1F1F1F !important; }body { background-color: #1F1F1F; background-image: none !important; }input, select, textarea, button { color: #BFBFBF; background-color: #1F1F1F; }font { color: #FAFAFA; }
+.rssList{width:450px; list-style:none outside none;background-color: #1C211C; border:1px solid #4B3D51; padding:4px 6px; }
+.rssList li{border-bottom:1px solid #D3CAD7; padding:5px;}
+.rssList li:last-child{border-bottom:none;}
+.itemTitle a{font-weight:none; color:#79C0FF; text-decoration:none }
+.itemTitle a:hover{ text-decoration:underline }
+.itemDate{font-size:11px;color:#FAFAFA;}
+.itemPublisher{font-size:11px;color:#FAFAFA;}
+.itemAuthor{font-size:11px;color:#FAFAFA; text-align: right} */
+
+/*a { color: #FAFAFA; }::-webkit-scrollbar-track-piece { background-color: rgba(255, 255, 255, 0.2) !important; }::-webkit-scrollbar-track { background-color: rgba(255, 255, 255, 0.3) !important; }::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.5) !important; }embed[type="application/pdf"] { filter: invert(90%); }
+
+html { color: rgb(191, 191, 191); background: rgb(31, 31, 31) !important; }body { background-color: rgb(31, 31, 31); background-image: none !important; }input, select, textarea, button { color: rgb(191, 191, 191); background-color: rgb(31, 31, 31); }font { color: rgb(191, 191, 191); }
+
+html { filter: contrast(100%) brightness(100%) saturate(100%); }.NIGHTEYE_Filter { width: 100%; height: 100%; position: fixed; left: 0px; top: 0px; pointer-events: none; z-index: 2147483647; }.NIGHTEYE_YellowFilter { background: rgba(255, 255, 0, 0.15); opacity: 0; }.NIGHTEYE_BlueFilter { background: rgba(0, 0, 255, 0.15); opacity: 0; }.NIGHTEYE_DimFilter { background: rgba(0, 0, 0, 0.5); opacity: 0; }.NIGHTEYE_TransformZ { transform: translateZ(0px); }
+
+.feedEkList { width: 450px; list-style: outside none none; background-color: rgb(28, 28, 33); border: 1px solid rgb(75, 61, 81); padding: 4px 6px; color: rgb(191, 191, 191); }.feedEkList li { border-bottom: 1px solid rgb(75, 61, 81); padding: 5px; }.feedEkList li:last-child { border-bottom: none; }.itemTitle a { font-weight: bold; text-decoration: none; color: #FAFAFA !important; }.itemTitle a:hover { text-decoration: underline; }.itemDate { font-size: 11px; color: rgb(191, 191, 191); }.itemAuthor { font-size: 11px; color: rgb(191, 191, 191); text-align: right; }
+*/
