@@ -30,6 +30,11 @@ jobs:
         run: |
           ls -lha
           echo "This is a shell command"
+      
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v2
+        with:
+          path: "requirements.txt"
           
       - name: Execute Python script # Run the app.py
         run: python main.py
