@@ -25,6 +25,11 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.8 # Install the python version needed
-
+      
+      - name: Run specific commands # Another step name
+        run: |
+          ls -lha
+          echo "This is a shell command"
+          
       - name: Execute Python script # Run the app.py
         run: python main.py
