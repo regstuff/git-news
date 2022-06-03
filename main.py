@@ -14,7 +14,8 @@ for rss_category in config['rssurl']:
         rss_feed = feedparser.parse(rss_url)
         rss2json[rss_category][rss_url] = feedparser.parse(rss_url)
         print(rss2json[rss_category][rss_url]['feed']['title'])
-        #for entry in rss2json['rss_category']['rss_url']['entries']:
+        for entry in rss2json[rss_category][rss_url]['entries']:
+            entry['published_js'] = time.strftime('%Y-%m-%d', entry['published_parsed'])
         #    print(entry['title'], entry['link'], time.strftime('%Y-%m-%d', entry['published_parsed']))
         #    print(entry['summary'])
         #    print(entry['media_thumbnail'][0]['url'])
