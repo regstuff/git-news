@@ -1,5 +1,5 @@
 const config = {
-    'maxPublishTime': 1*24*3600*1000, // 1 day in milliseconds
+    'maxPublishTime': 1*24*60, // In minutes
     'maxDescLen': 200, // Max number of characters
     'excludeTerms': ['Reactors',], // Exclude any titles with these terms. Case-sensitive
     'includeTerms': ['Reactors',], // Include any titles with these terms. Overrides exclude terms. Case-sensitive
