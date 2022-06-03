@@ -7,6 +7,8 @@ config = eval(re.sub(r'((?<!:)//).*?\n','', config).replace('\n','').replace(';'
 
 rss2json = dict()
 
+time_now = time.time()
+
 for rss_category in config['rssurl']:
     rss2json[rss_category] = dict()
     for rss_url in config['rssurl'][rss_category]:
@@ -14,11 +16,14 @@ for rss_category in config['rssurl']:
         rss_feed = feedparser.parse(rss_url)
         rss2json[rss_category][rss_url] = feedparser.parse(rss_url)
         print(rss2json[rss_category][rss_url]['feed']['title'])
-        for entry in rss2json[rss_category][rss_url]['entries']:
-            entry['published_js'] = time.strftime('%Y-%m-%d', entry['published_parsed'])
-        #    print(entry['title'], entry['link'], time.strftime('%Y-%m-%d', entry['published_parsed']))
-        #    print(entry['summary'])
-        #    print(entry['media_thumbnail'][0]['url'])
+        json_dict = rss2json[rss_category][rss_url]['entries'].copy()
+        for entry in json_dict:
+            if time_now - time.mktime(entry['published_parsed']) > eval(str(config['maxPublishTime']))*60:
+                rss2json[rss_category][rss_url]['entries'].remove(entry)
+            else: 
+                entry['published_js'] = time.strftime('%Y-%m-%d', entry['published_parsed'])
+        print(len(rss2json[rss_category][rss_url]['entries']))
 
 with open('rss2json.js', 'w') as f: # Dump json into file
+    print('Writing JSON to file')
     f.write(f'const rss2json = {json.dumps(rss2json)};') # Write to a file that Javascript can use
