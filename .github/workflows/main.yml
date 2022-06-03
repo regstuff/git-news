@@ -38,3 +38,6 @@ jobs:
           
       - name: Execute Python script # Run the app.py
         run: python main.py
+      
+      - name: Push Changes Back To Repo
+        uses: GuillaumeFalourd/git-commit-push@v1.3
