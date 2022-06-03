@@ -6,6 +6,9 @@ name: Get RSS To JSON
 on:
   schedule:
   - cron: "0 3,15 * * *"
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
 jobs:
   # This workflow contains a single job called "build"
   build:
