@@ -60,7 +60,8 @@ function itemValid(item) { // Checks to see if item should be included in feed
     console.log(item['title'], timediff)
     termExcluded = config['excludeTerms'].some(function(v) { return item['title'].indexOf(v) >= 0; }) // True if title contains any of the terms to exclude - https://stackoverflow.com/a/5582621/3016570
     termIncluded = config['includeTerms'].some(function(v) { return item['title'].indexOf(v) >= 0; }) // True if title contains any of the terms to include
-    boolval = !(timediff > config['maxPublishTime']*60*1000 || (termExcluded && !termIncluded)) // Check all conditions
+    //boolval = !(timediff > config['maxPublishTime']*60*1000 || (termExcluded && !termIncluded)) // Check all conditions
+    boolval = !((termExcluded && !termIncluded)) // Check all conditions
 
     return boolval
 }
