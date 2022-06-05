@@ -10,31 +10,24 @@ rss2json = dict()
 time_now = time.time()
 
 for rss_category in config['rssurl']:
-    rss2json[rss_category] = dict()
+    rss_category_renamed = rss_category.replace('/','_') # If category name has /, class and id names in html will break
+    rss2json[rss_category_renamed] = dict()
     for rss_url in config['rssurl'][rss_category]:
-        print(rss_url)
-        rss2json[rss_category][rss_url] = dict()
-        print('dict copy')
-        rss2json[rss_category][rss_url] = feedparser.parse(rss_url)
-        print('feed parsed')
-        
-        print(rss2json[rss_category][rss_url]['feed']['title'])
-        json_dict = rss2json[rss_category][rss_url]['entries'].copy()
-        
-        #print(rss2json[rss_category][rss_url]['headers'].keys())
-        if 'bozo_exception' in rss2json[rss_category][rss_url]: rss2json[rss_category][rss_url].pop('bozo_exception', None) # bozo-exception results in a non-serializable JSON object
-        
-        for entry in json_dict:
-            if time_now - time.mktime(entry['published_parsed']) > eval(str(config['maxPublishTime']))*60:
-                rss2json[rss_category][rss_url]['entries'].remove(entry)
-            else: 
-                entry['published_js'] = time.strftime('%Y-%m-%d', entry['published_parsed'])
+        rss_feed = feedparser.parse(rss_url)
+        rss2json[rss_category_renamed][rss_url] = dict()
+        rss2json[rss_category_renamed][rss_url]['feed'] = dict()
+        rss2json[rss_category_renamed][rss_url]['entries'] = []
+        rss2json[rss_category_renamed][rss_url]['feed']['title'] = rss_feed['feed']['title']
+        print(rss2json[rss_category_renamed][rss_url]['feed']['title'])        
+     
+        for entry in rss_feed['entries']:
+            if time_now - time.mktime(entry['published_parsed']) < eval(str(config['maxPublishTime']))*60:
+                entry_dict = {'title': entry['title'], 'summary': re.sub(r'<.*?>', '', entry['summary']), 'link': entry['link'], 'published_js': time.strftime('%Y-%m-%d', entry['published_parsed'])}
+                if 'author' in entry: entry_dict['author'] = entry['author']
+                else: entry_dict['author'] = None
+                rss2json[rss_category_renamed][rss_url]['entries'].append(entry_dict)
                 
-        print(len(rss2json[rss_category][rss_url]['entries']))
-
-#with open('rss2jsontxt.js', 'w') as f: # Dump json into file
-#    print('Writing JSON to txt')
-#    f.write(f'const rss2json = {str(rss2json)};') # Write to a file that Javascript can use
+        print(len(rss2json[rss_category_renamed][rss_url]['entries']))
     
 with open('rss2json.js', 'w') as f: # Dump json into file
     print('Writing JSON to file')
