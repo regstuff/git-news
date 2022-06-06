@@ -1,5 +1,5 @@
 const config = {
-    'maxPublishTime': 30*24*60, // In minutes
+    'maxPublishTime': 1*24*60, // In minutes
     'maxDescLen': 200, // Max number of characters
     'excludeTerms': ['KK', 'Moosewala', 'Moose Wala', 'iTunes', 'iPhone', 'iPad', 'smartwatch', 'iOS', 'Watch'], // Exclude any titles with these terms. Case-sensitive
     'includeTerms': [], // Include any titles with these terms. Overrides exclude terms. Case-sensitive
