@@ -16,16 +16,15 @@ function populateFeedList() {
             });
         });
         if (newfeed != '') { // Create card if feed is not empty
-            let columnNum = `rssColumn_${$('.cardContainer').length % 3}` // Calculate number of existing elements of class cardContainer. Decide which column to place in.
-            appendColumn(columnNum, listIndex, newfeed)
+            //let columnNum = `rssColumn_${$('.cardContainer').length % 3}` // Calculate number of existing elements of class cardContainer. Decide which column to place in.
+            appendColumn(listIndex, newfeed)
         }
     });
 }
 
 // Function that appends html content to a div of id rssColumn_x
-function appendColumn(columnNum, listIndex, newfeed) {
-    console.log('In append function')
-    $(`#${columnNum}`).append(`<div class="cardContainer"><h1 class="rssCard" id="title_${listIndex}">${listIndex.replaceAll('_','/')}</h1><div class="rssCard" id="card_${listIndex}"><ul class="rssList">content_${listIndex}</ul></div></div>`)
+function appendColumn(listIndex, newfeed) {
+    $(`#${findMinHeight().colId}`).append(`<div class="cardContainer"><h1 class="rssCard" id="title_${listIndex}">${listIndex.replaceAll('_','/')}</h1><div class="rssCard" id="card_${listIndex}"><ul class="rssList">content_${listIndex}</ul></div></div>`)
     $(`#card_${listIndex} > ul.rssList`).html(newfeed);
 }
 
@@ -54,4 +53,17 @@ function itemValid(item) { // Checks to see if item should be included in feed
     //boolval = !(timediff > config['maxPublishTime']*60*1000 || (termExcluded && !termIncluded)) // Check all conditions
     boolval = !((termExcluded && !termIncluded)) // Check all conditions
     return boolval
+}
+
+function findMinHeight() {
+    var minHeight = $('#rssColumn_0').height();
+    var colId = 'rssColumn_0';
+    $('.rssColumn').each(function() { 
+        if ($(this).height() < minHeight) {
+            console.log($(this).attr('id'), $(this).height())
+            minHeight = $(this).height();
+            colId = $(this).attr('id');
+        }
+    });
+    return {minHeight, colId};
 }
