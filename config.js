@@ -1,7 +1,7 @@
 const config = {
     'maxPublishTime': 1*24*60, // In minutes
     'maxDescLen': 200, // Max number of characters
-    'excludeTerms': ['NEET', 'covid', 'COVID', 'corona', 'Moosewala', 'Nupur Sharma', 'Moose Wala', 'iTunes', 'iPhone', 'iPad', 'smartwatch', 'iOS', 'Watch', 'macOS', 'watchOS'], // Exclude any titles with these terms. Case-sensitive
+    'excludeTerms': ['NEET', 'covid', 'COVID', 'corona', 'Moosewala', 'Nupur Sharma', 'Moose Wala', 'iTunes', 'iPhone', 'iPad', 'smartwatch', 'iOS', 'Watch', 'macOS', 'watchOS', 'The Wire', 'Scroll.in'], // Exclude any titles with these terms. Case-sensitive
     'includeTerms': [], // Include any titles with these terms. Overrides exclude terms. Case-sensitive
     'rssurl': {'Scitech': ['https://www.wired.com/feed/tag/ai/latest/rss', 'https://www.wired.com/feed/category/science/latest/rss', 'https://www.wired.com/feed/category/security/latest/rss', 'https://www.newscientist.com/subject/physics/feed/', 'https://www.newscientist.com/subject/technology/feed/', 'https://www.newscientist.com/subject/space/feed/'],
     'Health': ['https://www.newscientist.com/subject/health/feed/',],
