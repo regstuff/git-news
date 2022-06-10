@@ -10,6 +10,6 @@ const config = {
     'Nature': ['https://www.newscientist.com/subject/earth/feed/', 'https://www.newscientist.com/subject/life/feed/', 'https://www.newscientist.com/subject/humans/feed/', 'https://www.economist.com/science-and-technology/rss.xml'],
     'Business': ['https://www.wired.com/feed/category/business/latest/rss', 'https://www.economist.com/finance-and-economics/rss.xml', ],
     'Foss/Self-hosting': ['https://noted.lol/rss/', 'https://console.substack.com/feed', 'https://rss.beehiiv.com/feeds/iiTciQgHPG.xml'],
-    'News': ['https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en', 'https://indianexpress.com/print/front-page/feed/', 'https://news.google.com/rss/topics/CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx1YlY4U0JXVnVMVWRDR2dKSlRpZ0FQAQ?hl=en-IN&gl=IN&ceid=IN%3Aen', 'https://www.indiatoday.in/rss/home', ]
+    'News': ['https://indianexpress.com/print/front-page/feed/', 'https://www.mid-day.com/Resources/midday/rss/india-news.xml', 'https://createfeed.fivefilters.org/extract.php?url=https%3A%2F%2Ftimesofindia.indiatimes.com%2Findia%2Ftimestopten.cms&in_id_or_class=news_title&max=10&order=document&guid=0']
     },
 };
