@@ -48,7 +48,7 @@ function parseFeed(data, value) { // https://stackoverflow.com/a/7067582/3016570
 
 function itemValid(item) { // Checks to see if item should be included in feed
     timediff = new Date($.now()).getTime() - new Date(item['pubDate']).getTime(); // Get timediff between now and when this article was published
-    termExcluded = config['excludeTerms'].some(function(v) { return item['title'].indexOf(v) >= 0; }) || config['excludeTerms'].some(function(v) { return item['title'].indexOf(v.toUpperCase()) >= 0; }) // True if title contains any of the terms (as is & capitalized) to exclude - https://stackoverflow.com/a/5582621/3016570
+    termExcluded = config['excludeTerms'].some(function(v) { return item['title'].indexOf(v) >= 0; }) || config['excludeTerms'].some(function(v) { return item['title'].indexOf(v[0].toUpperCase() + v.slice(1)) >= 0; }) // True if title contains any of the terms (as is & capitalized) to exclude - https://stackoverflow.com/a/5582621/3016570
     termIncluded = config['includeTerms'].some(function(v) { return item['title'].indexOf(v) >= 0; }) // True if title contains any of the terms to include
     //boolval = !(timediff > config['maxPublishTime']*60*1000 || (termExcluded && !termIncluded)) // Check all conditions
     boolval = !((termExcluded && !termIncluded)) // Check all conditions
