@@ -6,6 +6,7 @@ with open('config.js', 'r') as f: # Get config from file
 config = eval(re.sub(r'((?<!:)//).*?\n','', config).replace('\n','').replace(';','')) # Remove Javascript stuff
 
 rss2json = dict()
+all_titles = []
 
 time_now = time.time()
 
@@ -26,9 +27,11 @@ for rss_category in config['rssurl']:
                 entry_dict = {'title': entry['title'], 'summary': re.sub(r'<.*?>', '', entry['summary']), 'link': entry['link'], 'published_js': time.strftime('%Y-%m-%d', entry['published_parsed'])}
                 if 'author' in entry: entry_dict['author'] = entry['author']
                 else: entry_dict['author'] = None
-                if '::' in rss_url_full:
-                    if eval(rss_url_full.split('::')[1]): rss2json[rss_category_renamed][rss_url]['entries'].append(entry_dict)
-                else: rss2json[rss_category_renamed][rss_url]['entries'].append(entry_dict)
+                if entry['title'] not in all_titles:
+                    all_titles.append(entry['title'])
+                    if '::' in rss_url_full:
+                        if eval(rss_url_full.split('::')[1]): rss2json[rss_category_renamed][rss_url]['entries'].append(entry_dict)
+                    else: rss2json[rss_category_renamed][rss_url]['entries'].append(entry_dict)
 
                 
         print(len(rss2json[rss_category_renamed][rss_url]['entries']))
