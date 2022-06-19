@@ -7,6 +7,8 @@ config = eval(re.sub(r'((?<!:)//).*?\n','', config).replace('\n','').replace(';'
 
 rss2json = dict()
 all_titles = []
+maxPublishTime = eval(str(config['maxPublishTime'])) # in minutes
+hrsTime = int(maxPublishTime/60) # For Google News RSS - needed in hours
 
 time_now = time.time()
 
@@ -15,21 +17,25 @@ for rss_category in config['rssurl']:
     rss2json[rss_category_renamed] = dict()
     for rss_url_full in config['rssurl'][rss_category]:
         rss_url = rss_url_full.split('::')[0]
-        rss_feed = feedparser.parse(rss_url)
+
+        if 'http:' in rss_url or 'https:' in rss_url: rss_feed = feedparser.parse(rss_url) # Proper rss feed. Use feedparser to get the data
+        else: rss_feed = feedparser.parse(f"https://news.google.com/rss/search?q=allinurl:{rss_url}+when:{hrsTime}h&ceid=IN:en&hl=en-IN&gl=IN") # Use Google News url (https://newscatcherapi.com/blog/google-news-rss-search-parameters-the-missing-documentaiton)
+        
         rss2json[rss_category_renamed][rss_url] = dict()
         rss2json[rss_category_renamed][rss_url]['feed'] = dict()
         rss2json[rss_category_renamed][rss_url]['entries'] = []
-        rss2json[rss_category_renamed][rss_url]['feed']['title'] = rss_feed['feed']['title']
+        if 'http:' in rss_url or 'https:' in rss_url: rss2json[rss_category_renamed][rss_url]['feed']['title'] = rss_feed['feed']['title']
+        else: rss2json[rss_category_renamed][rss_url]['feed']['title'] = rss_feed['feed']['title'].split(' ')[0].replace('"allinurl:','') # Get title from rss feed, strtpping out Google search params
         print(rss2json[rss_category_renamed][rss_url]['feed']['title'])                
-     
+    
         for entry in rss_feed['entries']:
-            if time_now - time.mktime(entry['published_parsed']) < eval(str(config['maxPublishTime']))*60:
+            if time_now - time.mktime(entry['published_parsed']) < maxPublishTime*60: # Only add entries within maxPublishedTime
                 entry_dict = {'title': entry['title'], 'summary': re.sub(r'<.*?>', '', entry['summary']), 'link': entry['link'], 'published_js': time.strftime('%Y-%m-%d', entry['published_parsed'])}
                 if 'author' in entry: entry_dict['author'] = entry['author']
                 else: entry_dict['author'] = None
                 if entry['title'] not in all_titles:
                     all_titles.append(entry['title'])
-                    if '::' in rss_url_full:
+                    if '::' in rss_url_full: # Apply filters
                         if eval(rss_url_full.split('::')[1]): rss2json[rss_category_renamed][rss_url]['entries'].append(entry_dict)
                     else: rss2json[rss_category_renamed][rss_url]['entries'].append(entry_dict)
 
