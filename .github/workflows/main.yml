@@ -22,20 +22,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
       
-      - name: Setup Python Version
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.8 # Install the python version needed
-      
       - name: Run specific commands # Another step name
         run: |
           ls -lha
           echo "This is a shell command"
       
-      - name: Install Python dependencies
-        uses: py-actions/py-dependency-install@v2
-        with:
-          path: "requirements.txt"
+      - name: Install dependencies
+        run: |
+          pip install feedparser
           
       - name: Execute Python script # Run the app.py
         run: python main.py
