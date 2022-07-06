@@ -15,7 +15,7 @@ Configurable RSS/News reader - kind of midway between Google News and a traditio
 - Visit https://[Your Username].github.io/git-news/
 
 # Options
-All settings reside in config.json, except for the frequency of feed updates. That can be changed in the Cron schedule in main.yml.
+All settings reside in config.js as a JSON blob, except for the frequency of feed updates. That can be changed in the Cron schedule in main.yml.
 
 1. *maxPublishTime:* How far back in time do you want pull stories from in all RSS feeds
 
