@@ -19,8 +19,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Use hashes for extra security - https://stackoverflow.com/a/70196496/3016570
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
       
       - name: Run specific commands # Another step name
         run: |
@@ -35,4 +36,4 @@ jobs:
         run: python main.py
       
       - name: Push Changes Back To Repo
-        uses: GuillaumeFalourd/git-commit-push@v1.3
+        uses: GuillaumeFalourd/git-commit-push@0363e474c79afd69c7e295d331183c0c1d824619
