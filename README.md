@@ -1,9 +1,14 @@
 # ntfyed
 
-Configurable RSS/News reader with per-url include/exclude rules
+Configurable RSS/News reader - kind of midway between Google News and a traditional RSS reader. 
+
+## Features
+- Show feed items published only in the past x hours/minutes etc
+- Universal & per-url include/exclude rules
+- Create feed categories 
 
 # Options
-All settings reside in config.json
+All settings reside in config.json, except for the frequency of feed updates. That can be changed in the Cron schedule in main.yml.
 
 1. *maxPublishTime:* How far back in time do you want pull stories from in all RSS feeds
 
@@ -20,3 +25,7 @@ All settings reside in config.json
 - Feedparser item syntax is to be used in the expression. These include entry["title"], entry["author"], entry["link"] & entry["summary"] (for description or full content). For tags, feedparser includes them in a list called term, within a dict named tags. So the expression should be like: all([x not in [y["term"] for y in entry["tags"]] for x in ["Apple"]]) 
 
 - For sites that do not have RSS, check if Google News indexes them. Then you can use Google News' [site-specific RSS feed](https://newscatcherapi.com/blog/google-news-rss-search-parameters-the-missing-documentaiton) for these. Simply specify the site name without http(s)://. ntfyed will manage the rest.
+
+# To-Do
+- Merge items on the same story published in multiple sites, like how Google News gives a dropdown below the main item
+- AI-based topic-level filtering. Eg. Filter out all smartphone news, even when the word 'smartphone' is not used
