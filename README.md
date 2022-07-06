@@ -1,4 +1,4 @@
-# ntfyed
+# git-news
 
 Configurable RSS/News reader - kind of midway between Google News and a traditional RSS reader. 
 
@@ -10,7 +10,7 @@ Configurable RSS/News reader - kind of midway between Google News and a traditio
 - Create feed categories 
 
 # Install
-- [Fork this repository](https://github.com/regstuff/ntfyed/fork)
+- [Fork this repository](https://github.com/regstuff/git-news/fork)
 - [Set up Github Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site) for your repo. Wait 5 minutes for Github to make your page live. 
 - Visit https://[Your Username].github.io/git-news/
 
@@ -31,7 +31,7 @@ All settings reside in config.js as a JSON blob, except for the frequency of fee
 
 - Feedparser item syntax is to be used in the expression. These include entry["title"], entry["author"], entry["link"] & entry["summary"] (for description or full content). For tags, feedparser includes them in a list called term, within a dict named tags. So the expression should be like: all([x not in [y["term"] for y in entry["tags"]] for x in ["Apple"]]) 
 
-- For sites that do not have RSS, check if Google News indexes them. Then you can use Google News' [site-specific RSS feed](https://newscatcherapi.com/blog/google-news-rss-search-parameters-the-missing-documentaiton) for these. Simply specify the site name without http(s)://. ntfyed will manage the rest.
+- For sites that do not have RSS, check if Google News indexes them. Then you can use Google News' [site-specific RSS feed](https://newscatcherapi.com/blog/google-news-rss-search-parameters-the-missing-documentaiton) for these. Simply specify the site name without http(s)://. git-news will manage the rest.
 
 # How it works
 Github actions are scheduled via Cron to use feedparser to parse each url. The parsed output is dumped as json in rss2json. Front-end Javascript on Github Pages does the rest.
