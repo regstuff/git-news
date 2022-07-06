@@ -12,7 +12,7 @@ Configurable RSS/News reader - kind of midway between Google News and a traditio
 # Install
 - [Fork this repository](https://github.com/regstuff/ntfyed/fork)
 - [Set up Github Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site) for your repo. Wait 5 minutes for Github to make your page live. 
-- Visit https://<Your Username>.github.io/git-news/
+- Visit https://[Your Username].github.io/git-news/
 
 # Options
 All settings reside in config.json, except for the frequency of feed updates. That can be changed in the Cron schedule in main.yml.
