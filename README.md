@@ -3,7 +3,7 @@
 Configurable RSS/News reader - kind of midway between Google News and a traditional RSS reader. 
 
 ## Features
-- Show feed items published only in the past x hours/minutes etc
+- Show feed items published only in the past x days/hours/minutes
 - Universal & per-url include/exclude rules
 - Create feed categories 
 
@@ -29,3 +29,4 @@ All settings reside in config.json, except for the frequency of feed updates. Th
 # To-Do
 - Merge items on the same story published in multiple sites, like how Google News gives a dropdown below the main item
 - AI-based topic-level filtering. Eg. Filter out all smartphone news, even when the word 'smartphone' is not used
+- Save feed items & search/list those later
