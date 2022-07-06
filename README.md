@@ -2,6 +2,8 @@
 
 Configurable RSS/News reader - kind of midway between Google News and a traditional RSS reader. 
 
+[Demo](https://regstuff.github.io/ntfyed/)
+
 ## Features
 - Show feed items published only in the past x days/hours/minutes
 - Universal & per-url include/exclude rules
