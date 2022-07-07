@@ -11,6 +11,6 @@ const config = {
     'Business': ['https://www.wired.com/feed/category/business/latest/rss', 'https://www.economist.com/finance-and-economics/rss.xml', ],
     'Foss/Self-hosting': ['https://console.substack.com/feed', 'https://rss.beehiiv.com/feeds/iiTciQgHPG.xml'],
     'History': ['https://www.heritagedaily.com/feed', 'https://phys.org/rss-feed/science-news/archaeology-fossils'],
-    'News': ['https://indianexpress.com/print/front-page/feed/', 'https://www.mid-day.com/Resources/midday/rss/india-news.xml', 'https://news.abplive.com/news/world/feed', 'swarajyamag.com']
+    'News': ['https://indianexpress.com/print/front-page/feed/', 'https://www.mid-day.com/Resources/midday/rss/india-news.xml', 'https://news.abplive.com/news/world/feed', 'swarajyamag.com::all([x not in entry["link"] for x in ["/movies/", "/newsletters/"]])']
     },
 };
