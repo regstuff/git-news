@@ -29,7 +29,7 @@ All settings reside in config.js as a JSON blob, except for the frequency of fee
 
 - To filter out items specific to each feed, add a :: after the url, followed by a python logical expression. If the expression evaluates to true, the item will be included. 
 
-- Feedparser item syntax is to be used in the expression. These include entry["title"], entry["author"], entry["link"] & entry["summary"] (for description or full content). For tags, feedparser includes them in a list called term, within a dict named tags. So the expression should be like: all([x not in [y["term"] for y in entry["tags"]] for x in ["Apple"]]) 
+- [Feedparser item syntax](https://feedparser.readthedocs.io/en/latest/common-rss-elements.html) is to be used in the expression. These include entry["title"], entry["author"], entry["link"] & entry["summary"] (for description or full content). For tags, feedparser includes them in a list called term, within a dict named tags. So the expression should be like: all([x not in [y["term"] for y in entry["tags"]] for x in ["Apple"]]) 
 
 - For sites that do not have RSS, check if Google News indexes them. Then you can use Google News' [site-specific RSS feed](https://newscatcherapi.com/blog/google-news-rss-search-parameters-the-missing-documentaiton) for these. Simply specify the site name without http(s)://. git-news will manage the rest.
 
