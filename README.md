@@ -37,6 +37,6 @@ All settings reside in config.js as a JSON blob, except for the frequency of fee
 Github actions are scheduled via Cron to use feedparser to parse each url. The parsed output is dumped as json in rss2json. Front-end Javascript on Github Pages does the rest.
 
 # To-Do
-- Merge items on the same story published in multiple sites, like how Google News gives a dropdown below the main item
-- AI-based topic-level filtering. Eg. Filter out all smartphone news, even when the word 'smartphone' is not used
+- Merge newsitems of the same story published in multiple sites, like how Google News gives a dropdown below the main item
+- Smarter topic-level filtering. Eg. Filter out all smartphone news, even when the word 'smartphone' is not used
 - Save feed items & search/list those later
