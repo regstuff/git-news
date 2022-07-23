@@ -31,9 +31,16 @@ for rss_category in config['rssurl']:
 
             for entry in rss_feed['entries']:
                 if time_now - time.mktime(entry['published_parsed']) < maxPublishTime*60: # Only add entries within maxPublishedTime
-                    entry_dict = {'title': entry['title'], 'summary': re.sub(r'<.*?>', '', entry['summary']), 'link': entry['link'], 'published_js': time.strftime('%Y-%m-%d', entry['published_parsed'])}
+                    entry_dict = dict()
+                    if 'title' in entry: entry_dict['title'] = entry['title']
+                    else: entry_dict['title'] = 'None'
+                    if 'summary' in entry: entry_dict['summary'] = re.sub(r'<.*?>', '', entry['summary'])
+                    else: entry_dict['summary'] = 'None'
+                    if 'link' in entry: entry_dict['link'] = entry['link']
+                    else: entry_dict['link'] = 'None'
+                    entry_dict['published_js'] = time.strftime('%Y-%m-%d', entry['published_parsed'])
                     if 'author' in entry: entry_dict['author'] = entry['author']
-                    else: entry_dict['author'] = None
+                    else: entry_dict['author'] = 'None'
                     if entry['title'] not in all_titles:
                         all_titles.append(entry['title'])
                         if '::' in rss_url_full: # Apply filters
