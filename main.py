@@ -30,7 +30,7 @@ for rss_category in config['rssurl']:
             print(rss2json[rss_category_renamed][rss_url]['feed']['title'])                
 
             for entry in rss_feed['entries']:
-                if time_now - time.mktime(entry['published_parsed']) < maxPublishTime*60: # Only add entries within maxPublishedTime
+                if 'published_parsed' in entry and time_now - time.mktime(entry['published_parsed']) < maxPublishTime*60: # Only add entries within maxPublishedTime
                     entry_dict = dict()
                     if 'title' in entry: entry_dict['title'] = entry['title']
                     else: entry_dict['title'] = 'None'
