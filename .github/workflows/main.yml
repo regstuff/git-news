@@ -34,6 +34,7 @@ jobs:
           
       - name: Execute Python script # Run the app.py
         run: python main.py
+        timeout-minutes: 20
       
       - name: Push Changes Back To Repo
         uses: GuillaumeFalourd/git-commit-push@0363e474c79afd69c7e295d331183c0c1d824619
