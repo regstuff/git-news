@@ -27,6 +27,7 @@ jobs:
         run: |
           ls -lha
           echo "This is a shell command"
+          python -m pip install pip==21.0.1
       
       - name: Install dependencies
         run: |
