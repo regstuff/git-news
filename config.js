@@ -9,7 +9,7 @@ const config = {
     'Longform': ['https://www.newscientist.com/section/features/feed/', 'https://feeds.a.dj.com/rss/RSSWSJD.xml', 'https://api.quantamagazine.org/feed/', 'https://www.economist.com/the-economist-explains/rss.xml'],
     'Nature': ['https://usefulscience.org/rss.xml', 'https://www.newscientist.com/subject/earth/feed/', 'https://www.newscientist.com/subject/life/feed/', 'https://www.newscientist.com/subject/humans/feed/', 'https://www.economist.com/science-and-technology/rss.xml', 'http://feeds.feedburner.com/DiscoverLivingWorld', 'http://feeds.feedburner.com/DiscoverEnvironment'],
     'Business': [],//['https://www.wired.com/feed/category/business/latest/rss', 'https://www.economist.com/finance-and-economics/rss.xml', ],
-    'Foss/Self-hosting': ['https://console.substack.com/feed'] //, 'https://rss.beehiiv.com/feeds/iiTciQgHPG.xml']
+    'Foss/Self-hosting': ['https://console.substack.com/feed'],// 'https://rss.beehiiv.com/feeds/iiTciQgHPG.xml'],
     'History': ['https://phys.org/rss-feed/science-news/archaeology-fossils'],
     'News': ['https://indianexpress.com/print/front-page/feed/', 'https://www.mid-day.com/Resources/midday/rss/india-news.xml', 'https://feeds.a.dj.com/rss/RSSWorldNews.xml', 'swarajyamag.com::all([x not in entry["link"] for x in ["/movies/", "/newsletters/"]])']
     },
