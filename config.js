@@ -11,6 +11,7 @@ const config = {
     'Business': [],//['https://www.wired.com/feed/category/business/latest/rss', 'https://www.economist.com/finance-and-economics/rss.xml', ],
     'Foss/Self-hosting': ['https://console.substack.com/feed'],// 'https://rss.beehiiv.com/feeds/iiTciQgHPG.xml'],
     'History': ['https://phys.org/rss-feed/science-news/archaeology-fossils'],
-    'News': ['https://indianexpress.com/print/front-page/feed/', 'https://www.mid-day.com/Resources/midday/rss/india-news.xml', 'https://feeds.a.dj.com/rss/RSSWorldNews.xml', 'swarajyamag.com::all([x not in entry["link"] for x in ["/movies/", "/newsletters/"]])']
+    'News': ['https://indianexpress.com/print/front-page/feed/', 'https://www.mid-day.com/Resources/midday/rss/india-news.xml', 'swarajyamag.com::all([x not in entry["link"] for x in ["/movies/", "/newsletters/"]])'], // 'https://feeds.a.dj.com/rss/RSSWorldNews.xml', 
+    'TIL': ['https://www.reddit.com/r/todayilearned/top/.rss?sort=top'],               
     },
 };
