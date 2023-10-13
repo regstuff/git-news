@@ -7,6 +7,8 @@ print('Loading Silero models')
 
 torch.hub.download_url_to_file('https://raw.githubusercontent.com/snakers4/silero-models/master/models.yml', 'latest_silero_models.yml', progress=True)
 models = OmegaConf.load('latest_silero_models.yml')
+print('Downloaded YAML of Silero models')
+
 
 language = 'en'
 model_id = 'v3_en'
