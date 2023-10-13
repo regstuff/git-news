@@ -5,7 +5,7 @@ from IPython.display import Audio, display
 
 print('Loading Silero models')
 
-torch.hub.download_url_to_file('https://raw.githubusercontent.com/snakers4/silero-models/master/models.yml', 'latest_silero_models.yml', progress=True)
+torch.hub.download_url_to_file('https://raw.githubusercontent.com/snakers4/silero-models/master/models.yml', 'latest_silero_models.yml', progress=False)
 models = OmegaConf.load('latest_silero_models.yml')
 print('Downloaded YAML of Silero models')
 
@@ -30,6 +30,8 @@ with open('output.mp3', 'wb') as f: f.write(audio_obj.data)
 
 print('Example output.mp3 done.')
 
+all_audios = []
+
 print('Loading config.js')
 
 with open('config.js', 'r') as f: # Get config from file
@@ -49,7 +51,7 @@ tts_text = ''
 
 for rss_category in config['rssurl']:
     print(rss_category)
-    tts_text += f'New catgeory started. {rss_category}'
+    tts_text = f'New catgeory started. {rss_category}.'
     rss_category_renamed = rss_category.replace('/','_') # If category name has /, class and id names in html will break
     rss2json[rss_category_renamed] = dict()
     for rss_url_full in config['rssurl'][rss_category]:
@@ -79,7 +81,8 @@ for rss_category in config['rssurl']:
                         entry_dict = dict()
                         if 'title' in entry: 
                             entry_dict['title'] = entry['title']
-                            tts_text += f'New article. {entry_dict["title"]}'
+                            if tts_text == f'New catgeory started. {rss_category}.': tts_text += f'New article. {entry_dict["title"]}'
+                            else: tts_text = f'New article. {entry_dict["title"]}'
                         else: entry_dict['title'] = 'None'
                         if 'summary' in entry: 
                             entry_dict['summary'] = re.sub(r'<.*?>', '', entry['summary'])
@@ -98,6 +101,11 @@ for rss_category in config['rssurl']:
                                 if eval(rss_url_full.split('::')[1]): rss2json[rss_category_renamed][rss_url]['entries'].append(entry_dict)
                             else: rss2json[rss_category_renamed][rss_url]['entries'].append(entry_dict)
 
+                print('Doing tts')
+                audio = model.apply_tts(text=tts_text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
+                print('TTS complete. Addinf to audios list')
+                audio_obj = Audio(audio, rate=sample_rate)
+                all_audios.append(audio_obj)
 
             print(len(rss2json[rss_category_renamed][rss_url]['entries']))
         
@@ -107,10 +115,15 @@ with open('rss2json.js', 'w') as f: # Dump json into file
     print('Writing JSON to file')
     f.write(f'const rss2json = {json.dumps(rss2json)};') # Write to a file that Javascript can use
 
-print('Doing tts on RSS Feed text')
-audio = model.apply_tts(text=tts_text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
-print('TTS complete. Saving file')
-audio_obj = Audio(audio, rate=sample_rate)
-with open('output.mp3', 'wb') as f: f.write(audio_obj.data)
+print('Starting audio object concatenation')
+audio_array = all_audios[0].data
+for aobj in all_audios[1:]:
+    data = aobj.data
+    audio_array = np.concatenate((audio_array, data)) 
+
+print('Finished audio object concatenation')
+
+with open('output.mp3', 'wb') as f: f.write(audio_array.data)
 print('File saved')
+    
 
