@@ -86,7 +86,7 @@ for rss_category in config['rssurl']:
                         else: entry_dict['title'] = 'None'
                         if 'summary' in entry: 
                             entry_dict['summary'] = re.sub(r'<.*?>', '', entry['summary'])
-                            summ_len = entry_dict['summary'].split(' ')
+                            summ_len = len(entry_dict['summary'].split(' '))
                             if summ_len > 45: entry_dict['summary'] = ' '.join(entry_dict['summary'].split(' ')[:45]) + '...'
                             tts_text += f'{entry_dict["summary"]}'
                         else: entry_dict['summary'] = 'None'
