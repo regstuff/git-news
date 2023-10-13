@@ -86,6 +86,8 @@ for rss_category in config['rssurl']:
                         else: entry_dict['title'] = 'None'
                         if 'summary' in entry: 
                             entry_dict['summary'] = re.sub(r'<.*?>', '', entry['summary'])
+                            summ_len = entry_dict['summary'].split(' ')
+                            if summ_len > 45: entry_dict['summary'] = ' '.join(entry_dict['summary'].split(' ')[:45]) + '...'
                             tts_text += f'{entry_dict["summary"]}'
                         else: entry_dict['summary'] = 'None'
                         if 'link' in entry: entry_dict['link'] = entry['link']
@@ -105,6 +107,7 @@ for rss_category in config['rssurl']:
                 audio = model.apply_tts(text=tts_text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
                 print('TTS complete. Adding to audios list')
                 all_audios.append(audio.data)
+                break
 
             print(len(rss2json[rss_category_renamed][rss_url]['entries']))
         
