@@ -119,7 +119,7 @@ with open('rss2json.js', 'w') as f: # Dump json into file
     f.write(f'const rss2json = {json.dumps(rss2json)};') # Write to a file that Javascript can use
 
 print('Starting audio object concatenation')
-audio_array = np.concatenate((all_audios, data)) 
+audio_array = np.concatenate((all_audios)) 
 print('Finished audio object concatenation')
 
 audio_obj = Audio(data=audio_array, rate=sample_rate)
