@@ -103,7 +103,7 @@ for rss_category in config['rssurl']:
 
                 print('Doing tts')
                 audio = model.apply_tts(text=tts_text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
-                print('TTS complete. Addinf to audios list')
+                print('TTS complete. Adding to audios list')
                 audio_obj = Audio(audio, rate=sample_rate)
                 all_audios.append(audio_obj)
 
