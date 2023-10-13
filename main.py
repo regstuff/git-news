@@ -104,8 +104,7 @@ for rss_category in config['rssurl']:
                 print('Doing tts')
                 audio = model.apply_tts(text=tts_text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
                 print('TTS complete. Adding to audios list')
-                audio_obj = Audio(audio, rate=sample_rate)
-                all_audios.append(audio_obj)
+                all_audios.append(audio.data)
 
             print(len(rss2json[rss_category_renamed][rss_url]['entries']))
         
@@ -116,14 +115,11 @@ with open('rss2json.js', 'w') as f: # Dump json into file
     f.write(f'const rss2json = {json.dumps(rss2json)};') # Write to a file that Javascript can use
 
 print('Starting audio object concatenation')
-audio_array = all_audios[0].data
-for aobj in all_audios[1:]:
-    data = aobj.data
-    audio_array = np.concatenate((audio_array, data)) 
-
+audio_array = np.concatenate((all_audios, data)) 
 print('Finished audio object concatenation')
 
-with open('output.mp3', 'wb') as f: f.write(audio_array.data)
+audio_obj = Audio(data=audio_array, rate=sample_rate)
+with open('output.mp3', 'wb') as f: f.write(audio_obj.data)
 print('File saved')
     
 
