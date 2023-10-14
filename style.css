@@ -1,14 +1,72 @@
-html { color: #FAFAFA; background: #1F1F1F !important; }body { background-color: #1F1F1F; background-image: none !important; }input, select, textarea, button { color: #BFBFBF; background-color: #1F1F1F; }font { color: #FAFAFA; }
-.rssList{width:450px; list-style:none outside none;background-color: #323232 ; border:1px solid #4B3D51; padding:4px 6px; }
-.rssList li{border-bottom:1px solid #D3CAD7; padding:5px;}
-.rssList li:last-child{border-bottom:none;}
-.itemTitle a{font-weight:none; color:#a9e3ff; text-decoration:none; font-family: Garamond; font-size: 20px; margin: 0px 0px 2px 0; display: block;}
-.itemTitle a:hover{ text-decoration:underline }
-.itemDate{font-size:11px;color:#FAFAFA; margin: 0px 0px 6px 0; display: block;}
-.itemPublisher{font-size:11px;color:#FAFAFA; margin: 0px 0px 6px 0; display: block;}
-.itemAuthor{font-size:11px;color:#FAFAFA; text-align: right}
-.cardContainer{}
-.rssColumn{display:inline-block; margin: 5px 20px 5px 20px; max-width:500px; vertical-align: top;}
+html { color: #FAFAFA; background: #1F1F1F !important; }
+body { background-color: #1F1F1F; background-image: none !important; }
+input, select, textarea, button { color: #BFBFBF; background-color: #1F1F1F; }
+font { color: #FAFAFA; }
+
+.rssList {
+  width: 450px;
+  list-style: none outside none;
+  background-color: #323232;
+  border: 1px solid #4B3D51;
+  padding: 4px 6px;
+  list-style-position: inside;
+}
+
+.rssList li {
+  border-bottom: 1px solid #D3CAD7;
+  padding: 5px;
+}
+
+.rssList li:last-child {
+  border-bottom: none;
+}
+
+.rssList ul {
+  list-style-position: inside;
+}
+
+.itemTitle a {
+  font-weight: none;
+  color: #a9e3ff;
+  text-decoration: none;
+  font-family: Garamond;
+  font-size: 20px;
+  margin: 0px 0px 2px 0;
+  display: block;
+}
+
+.itemTitle a:hover {
+  text-decoration: underline;
+}
+
+.itemDate {
+  font-size: 11px;
+  color: #FAFAFA;
+  margin: 0px 0px 6px 0;
+  display: block;
+}
+
+.itemPublisher {
+  font-size: 11px;
+  color: #FAFAFA;
+  margin: 0px 0px 6px 0;
+  display: block;
+}
+
+.itemAuthor {
+  font-size: 11px;
+  color: #FAFAFA;
+  text-align: right;
+}
+
+.cardContainer {}
+
+.rssColumn {
+  display: inline-block;
+  margin: 5px 20px 5px 20px;
+  max-width: 500px;
+  vertical-align: top;
+}
 
 /*a { color: #FAFAFA; }::-webkit-scrollbar-track-piece { background-color: rgba(255, 255, 255, 0.2) !important; }::-webkit-scrollbar-track { background-color: rgba(255, 255, 255, 0.3) !important; }::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.5) !important; }embed[type="application/pdf"] { filter: invert(90%); }
 

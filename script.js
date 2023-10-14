@@ -17,14 +17,16 @@ function populateFeedList() {
         });
         if (newfeed != '') { // Create card if feed is not empty
             //let columnNum = `rssColumn_${$('.cardContainer').length % 3}` // Calculate number of existing elements of class cardContainer. Decide which column to place in.
-            appendColumn(listIndex, newfeed)
+            // appendColumn(listIndex, newfeed)
+            // append to the body
+            $('body').append(`<div class="cardContainer"><h1 class="rssCard" id="title_${listIndex}">${listIndex.replaceAll('_','/')}</h1>${newfeed}</div>`)
         }
     });
 }
 
 // Function that appends html content to a div of id rssColumn_x
 function appendColumn(listIndex, newfeed) {
-    $(`#${findMinHeight().colId}`).append(`<div class="cardContainer"><p class="rssCard" id="title_${listIndex}">${listIndex.replaceAll('_','/')}</p><div class="rssCard" id="card_${listIndex}"><ul class="rssList">content_${listIndex}</ul></div></div>`)
+    $(`#${findMinHeight().colId}`).append(`<div class="cardContainer"><h1 class="rssCard" id="title_${listIndex}">${listIndex.replaceAll('_','/')}</h1><div class="rssCard" id="card_${listIndex}"><ul class="rssList">content_${listIndex}</ul></div></div>`)
     $(`#card_${listIndex} > ul.rssList`).html(newfeed);
 }
 
@@ -41,7 +43,7 @@ function parseFeed(data, value) { // https://stackoverflow.com/a/7067582/3016570
     }
     //console.log('Parsed feed of:', item['title'])
     if (itemValid(item)) {
-        newfeed += `<li><div class='itemTitle'><a href='${item['link']}' target='_blank'>${item['title']}</a></div><div class='itemPublisher'>${newsPublisher}</div><div class='itemContent'>${item['description'].slice(0,config['maxDescLen'])}</div></li>`; 
+        newfeed += `<div class='itemTitle'><a href='${item['link']}' target='_blank'>${item['title']}</a></div><div class='itemPublisher'>${newsPublisher}</div><div class='itemContent'>${item['description'].slice(0,config['maxDescLen'])}</div><hr>`; 
     }
     return newfeed 
 };
