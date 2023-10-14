@@ -1,37 +1,37 @@
 import feedparser, re, time, json
-import numpy as np
-import torch
-from omegaconf import OmegaConf
-from IPython.display import Audio, display
+# import numpy as np
+# import torch
+# from omegaconf import OmegaConf
+# from IPython.display import Audio, display
 
-print('Loading Silero models')
+# print('Loading Silero models')
 
-torch.hub.download_url_to_file('https://raw.githubusercontent.com/snakers4/silero-models/master/models.yml', 'latest_silero_models.yml', progress=False)
-models = OmegaConf.load('latest_silero_models.yml')
-print('Downloaded YAML of Silero models')
+# torch.hub.download_url_to_file('https://raw.githubusercontent.com/snakers4/silero-models/master/models.yml', 'latest_silero_models.yml', progress=False)
+# models = OmegaConf.load('latest_silero_models.yml')
+# print('Downloaded YAML of Silero models')
 
 
-language = 'en'
-model_id = 'v3_en'
-device = torch.device('cpu')
-model, example_text = torch.hub.load(repo_or_dir='snakers4/silero-models', model='silero_tts', language=language, speaker=model_id)
-model.to(device)  # gpu or cpu
+# language = 'en'
+# model_id = 'v3_en'
+# device = torch.device('cpu')
+# model, example_text = torch.hub.load(repo_or_dir='snakers4/silero-models', model='silero_tts', language=language, speaker=model_id)
+# model.to(device)  # gpu or cpu
 
-print('Loaded Silero models. Configuring voice')
+# print('Loaded Silero models. Configuring voice')
 
-sample_rate = 24000
-speaker = "en_24"
-put_accent=False
-put_yo=False
-example_text = 'Tom Brady. New blood test more convenient for measuring important omega-3 levels'
+# sample_rate = 24000
+# speaker = "en_24"
+# put_accent=False
+# put_yo=False
+# example_text = 'Tom Brady. New blood test more convenient for measuring important omega-3 levels'
 
-audio = model.apply_tts(text=example_text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
-audio_obj = Audio(audio, rate=sample_rate)
-with open('output.mp3', 'wb') as f: f.write(audio_obj.data)
+# audio = model.apply_tts(text=example_text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
+# audio_obj = Audio(audio, rate=sample_rate)
+# with open('output.mp3', 'wb') as f: f.write(audio_obj.data)
 
-print('Example output.mp3 done.')
+# print('Example output.mp3 done.')
 
-all_audios = []
+# all_audios = []
 
 print('Loading config.js')
 
@@ -82,16 +82,23 @@ for rss_category in config['rssurl']:
                         entry_dict = dict()
                         if 'title' in entry: 
                             entry_dict['title'] = entry['title']
+                            if '- Swarajya' in entry_dict['title']: entry_dict['title'] = entry_dict['title'].split('- Swarajya')[0].strip()
+                            elif '- CNN International' in entry_dict['title']: entry_dict['title'] = entry_dict['title'].split('- CNN International')[0].strip()
                             if tts_text == f'New catgeory started. {rss_category}.': tts_text += f'New article. {entry_dict["title"]}'
                             else: tts_text = f'New article. {entry_dict["title"]}'
                         else: entry_dict['title'] = 'None'
                         if 'summary' in entry: 
                             entry_dict['summary'] = re.sub(r'<.*?>', '', entry['summary'])
+                            if 'Swarajya' in entry_dict['summary']: entry_dict['summary'] = entry_dict['summary'].split('Swarajya')[0].strip()
+                            elif 'CNN International' in entry_dict['summary']: entry_dict['summary'] = entry_dict['summary'].split('CNN International')[0].strip()
                             summ_len = len(entry_dict['summary'].split(' '))
                             if summ_len > 45: entry_dict['summary'] = ' '.join(entry_dict['summary'].split(' ')[:45]) + '...'
                             tts_text += f'{entry_dict["summary"]}'
                         else: entry_dict['summary'] = 'None'
-                        if 'link' in entry: entry_dict['link'] = entry['link']
+                        if 'link' in entry: 
+                            entry_dict['link'] = entry['link']
+                            if 'newatlas' in entry_dict['link']: entry_dict['summary'] = entry_dict['summary'].split('Continue Reading')[0].strip()
+                            elif 'warisboring' in entry_dict['link']: entry_dict['summary'] = entry_dict['summary'].split('The post')[0].strip()
                         else: entry_dict['link'] = 'None'
                         entry_dict['published_js'] = time.strftime('%Y-%m-%d', entry['published_parsed'])
                         if 'author' in entry: 
@@ -124,6 +131,6 @@ with open('rss2json.js', 'w') as f: # Dump json into file
 
 # audio_obj = Audio(data=audio_array, rate=sample_rate)
 # with open('output.mp3', 'wb') as f: f.write(audio_obj.data)
-print('File saved')
+# print('File saved')
     
 

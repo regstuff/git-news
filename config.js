@@ -1,6 +1,6 @@
 const config = {
     'maxPublishTime': 1*24*60, // In minutes
-    'maxDescLen': 200, // Max number of characters
+    'maxDescLen': 400, // Max number of characters
     'excludeTerms': ['Black Friday', 'Cyber Monday', 'NEET', 'Pee-Gate', 'pee-gate', 'pee gate', 'Pee Gate', 'Bharat Jodo', 'monkeypox', 'covid', 'COVID', 'corona', 'Moosewala', 'Nupur Sharma', 'Morbi', 'Aftab', 'Shraddha', 'Moose Wala', 'iTunes', 'iPhone', 'iPad', 'smartwatch', 'iOS', 'Watch', 'macOS', 'watchOS', 'Prime Day', 'Garmin', 'Amazfit', 'Fitbit', 'Google Pixel', 'Pixel 6', 'Pixel 7', 'Sex Toy'], // Exclude any titles with these terms. Case-sensitive
     'includeTerms': [], // Include any titles with these terms. Overrides exclude terms. Case-sensitive
     'rssurl': {'Scitech': ['https://newatlas.com/science/index.rss', 'https://www.cbsnews.com/latest/rss/science', 'https://www.cbsnews.com/latest/rss/space', 'http://warisboring.com/feed/'],
