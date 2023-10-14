@@ -6,7 +6,7 @@ $(document).ready(function() {
 function populateFeedList() {
     $.each(rss2json,function(listIndex, listElement){
         console.log('Looping through RSS Category:', listIndex)
-        //$('body').append(`<div class="cardContainer"><h1 class="rssCard" id="title_${listIndex}">${listIndex}</h1><div class="rssCard" id="card_${listIndex}"><ul class="rssList">content_${listIndex}</ul></div></div>`)
+        //$('body').append(`<div class="cardContainer"><p class="rssCard" id="title_${listIndex}">${listIndex}</p><div class="rssCard" id="card_${listIndex}"><ul class="rssList">content_${listIndex}</ul></div></div>`)
         var newfeed = ''
         $.each(listElement, function (index, value) {
             console.log('Looping through RSS URL:', value['feed']['title'])
