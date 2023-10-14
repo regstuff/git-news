@@ -104,11 +104,11 @@ for rss_category in config['rssurl']:
                                 if eval(rss_url_full.split('::')[1]): rss2json[rss_category_renamed][rss_url]['entries'].append(entry_dict)
                             else: rss2json[rss_category_renamed][rss_url]['entries'].append(entry_dict)
 
-                print('Doing tts')
-                audio = model.apply_tts(text=tts_text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
-                print('TTS complete. Adding to audios list')
-                all_audios.append(audio.data)
-                break
+                # print('Doing tts')
+                # audio = model.apply_tts(text=tts_text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
+                # print('TTS complete. Adding to audios list')
+                # all_audios.append(audio.data)
+                # break
 
             print(len(rss2json[rss_category_renamed][rss_url]['entries']))
         
