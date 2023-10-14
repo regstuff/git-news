@@ -24,7 +24,7 @@ function populateFeedList() {
 
 // Function that appends html content to a div of id rssColumn_x
 function appendColumn(listIndex, newfeed) {
-    $(`#${findMinHeight().colId}`).append(`<div class="cardContainer"><h1 class="rssCard" id="title_${listIndex}">${listIndex.replaceAll('_','/')}</h1><div class="rssCard" id="card_${listIndex}"><ul class="rssList">content_${listIndex}</ul></div></div>`)
+    $(`#${findMinHeight().colId}`).append(`<div class="cardContainer"><p class="rssCard" id="title_${listIndex}">${listIndex.replaceAll('_','/')}</p><div class="rssCard" id="card_${listIndex}"><ul class="rssList">content_${listIndex}</ul></div></div>`)
     $(`#card_${listIndex} > ul.rssList`).html(newfeed);
 }
 
