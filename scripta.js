@@ -20,7 +20,7 @@ function populateFeedList() {
             // appendColumn(listIndex, newfeed)
             // append to the body
             // $('body').append(`<div class="cardContainer"><h1 class="rssCard" id="title_${listIndex}">${listIndex.replaceAll('_','/')}</h1>${newfeed}</div>`)
-            $('body').append(`<div class="cardContainer"><p class="rssCard" id="title_${listIndex}">New category, ${listIndex.replaceAll('_','/')}</p>${newfeed}</div>`)
+            $('body').append(`<div class="cardContainer"><p id="title_${listIndex}">New category, ${listIndex.replaceAll('_','/')}</p>${newfeed}</div>`)
         }
     });
 }
@@ -44,7 +44,16 @@ function parseFeed(data, value) { // https://stackoverflow.com/a/7067582/3016570
     }
     //console.log('Parsed feed of:', item['title'])
     if (itemValid(item)) {
-        newfeed += `<p class='itemTitle'><a href='${item['link']}' target='_blank'>Next article, ${item['title']}</a></p><p class='itemPublisher'>${newsPublisher}</p><p class='itemContent'>Summary is, ${item['description'].slice(0,config['maxDescLen'])}</p>`; 
+        if (item['newsPublisher'] != "Today I Learned (TIL)") {
+            // Check if the string "Summary:" is present in item['description']
+            if (item['description'].includes("Summary:")) {
+                newfeed += `<p><a href='${item['link']}' target='_blank'>Next article, ${item['title']}</a></p><p>${item['description'].slice(0,config['maxDescLen'])}</p>`; 
+            } else {
+                newfeed += `<p><a href='${item['link']}' target='_blank'>Next article, ${item['title']}</a></p><p>Summary is, ${item['description'].slice(0,config['maxDescLen'])}</p>`; 
+            }
+        } else {
+            newfeed += `<p><a href='${item['link']}' target='_blank'>Next article, ${item['title']}</a></p>`;
+        }
     }
     return newfeed 
 };
