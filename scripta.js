@@ -44,7 +44,8 @@ function parseFeed(data, value) { // https://stackoverflow.com/a/7067582/3016570
     }
     //console.log('Parsed feed of:', item['title'])
     if (itemValid(item)) {
-        if (item['newsPublisher'] != "Today I Learned (TIL)") {
+        console.log(newsPublisher)
+        if (newsPublisher != "Today I Learned (TIL)") {
             // Check if the string "Summary:" is present in item['description']
             if (item['description'].includes("Summary:")) {
                 newfeed += `<p><a href='${item['link']}' target='_blank'>Next article, ${item['title']}</a></p><p>${item['description'].slice(0,config['maxDescLen'])}</p>`; 
