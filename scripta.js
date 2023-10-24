@@ -6,8 +6,8 @@ $(document).ready(function() {
 function populateFeedList() {
     $.each(rss2json,function(listIndex, listElement){
         console.log('Looping through RSS Category:', listIndex)
-        //$('body').append(`<div class="cardContainer"><p class="rssCard" id="title_${listIndex}">${listIndex}</p><div class="rssCard" id="card_${listIndex}"><ul class="rssList">content_${listIndex}</ul></div></div>`)
-        var newfeed = ''
+        newfeed = `<p>New category, ${listIndex.replaceAll('_','/')}. `
+
         $.each(listElement, function (index, value) {
             console.log('Looping through RSS URL:', value['feed']['title'])
             $.each(value['entries'], function(index, data) {  
@@ -15,20 +15,12 @@ function populateFeedList() {
                 newfeed = newfeed + parseFeed(data, value['feed']['title'])
             });
         });
-        if (newfeed != '') { // Create card if feed is not empty
-            //let columnNum = `rssColumn_${$('.cardContainer').length % 3}` // Calculate number of existing elements of class cardContainer. Decide which column to place in.
-            // appendColumn(listIndex, newfeed)
-            // append to the body
-            // $('body').append(`<div class="cardContainer"><h1 class="rssCard" id="title_${listIndex}">${listIndex.replaceAll('_','/')}</h1>${newfeed}</div>`)
-            $('body').append(`<div class="cardContainer"><p id="title_${listIndex}">New category, ${listIndex.replaceAll('_','/')}</p>${newfeed}</div>`)
-        }
-    });
-}
 
-// Function that appends html content to a div of id rssColumn_x
-function appendColumn(listIndex, newfeed) {
-    $(`#${findMinHeight().colId}`).append(`<div class="cardContainer"><h1 class="rssCard" id="title_${listIndex}">${listIndex.replaceAll('_','/')}</h1><div class="rssCard" id="card_${listIndex}"><ul class="rssList">content_${listIndex}</ul></div></div>`)
-    $(`#card_${listIndex} > ul.rssList`).html(newfeed);
+        if (newfeed.split('.').length > 3) { // Add category if there is atleast one article
+            $('body').append(newfeed)
+        }
+        
+    });
 }
 
 // Parse the JSON dump and return html
@@ -48,12 +40,12 @@ function parseFeed(data, value) { // https://stackoverflow.com/a/7067582/3016570
         if (newsPublisher != "Today I Learned (TIL)") {
             // Check if the string "Summary:" is present in item['description']
             if (item['description'].includes("Summary:")) {
-                newfeed += `<p><a href='${item['link']}' target='_blank'>Next article, ${item['title']}</a></p><p>${item['description'].slice(0,config['maxDescLen'])}</p>`; 
+                newfeed += `Next article, ${item['title']}. ${item['description'].slice(0,config['maxDescLen'])}. `; 
             } else {
-                newfeed += `<p><a href='${item['link']}' target='_blank'>Next article, ${item['title']}</a></p><p>Summary is, ${item['description'].slice(0,config['maxDescLen'])}</p>`; 
+                newfeed += `Next article, ${item['title']}. Summary is, ${item['description'].slice(0,config['maxDescLen'])}. `; 
             }
         } else {
-            newfeed += `<p><a href='${item['link']}' target='_blank'>Next article, ${item['title']}</a></p>`;
+            newfeed += `Next article, ${item['title']}. `;
         }
     }
     return newfeed 
@@ -66,17 +58,4 @@ function itemValid(item) { // Checks to see if item should be included in feed
     //boolval = !(timediff > config['maxPublishTime']*60*1000 || (termExcluded && !termIncluded)) // Check all conditions
     boolval = !((termExcluded && !termIncluded)) // Check all conditions
     return boolval
-}
-
-function findMinHeight() {
-    var minHeight = $('#rssColumn_0').height();
-    var colId = 'rssColumn_0';
-    $('.rssColumn').each(function() { 
-        if ($(this).height() < minHeight) {
-            console.log($(this).attr('id'), $(this).height())
-            minHeight = $(this).height();
-            colId = $(this).attr('id');
-        }
-    });
-    return {minHeight, colId};
 }
