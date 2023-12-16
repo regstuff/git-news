@@ -1,4 +1,4 @@
-import feedparser, re, time, json, requests
+import feedparser, re, time, json, requests, os
 # import numpy as np
 # import torch
 # from omegaconf import OmegaConf
@@ -73,6 +73,7 @@ for rss_category in config['rssurl']:
             rheaders = {"Authorization": f"bearer {toke['access_token']}", "User-Agent": "personalscript/0.1 by regstuff"}
             response = requests.get("https://oauth.reddit.com/r/jokes/top", headers=rheaders)
             entries = response.json()['data']['children']
+            print('REDDIT ENTRIES', entries)
             rss2json[rss_category_renamed][rss_url] = dict()
             rss2json[rss_category_renamed][rss_url]['feed'] = dict()
             rss2json[rss_category_renamed][rss_url]['entries'] = [{'title': x['data']['title'], 'summary': x['data']['selftext'], 'link': x['data']['url_overridden_by_dest'], 'author': 'None'} for x in entries if time_now-x['data']['created']<maxPublishTime*60]
