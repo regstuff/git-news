@@ -87,7 +87,7 @@ for rss_category in config['rssurl']:
             print('done')
         except: print('Unable to get rss feed from', rss_url)
         
-        if if 'oauth.reddit.com' not in rss_url and rss_feed.status == 200: 
+        if 'oauth.reddit.com' not in rss_url and rss_feed.status == 200: 
             print('status is 200')
             rss2json[rss_category_renamed][rss_url] = dict()
             rss2json[rss_category_renamed][rss_url]['feed'] = dict()
