@@ -59,8 +59,7 @@ for rss_category in config['rssurl']:
         rss_url = rss_url_full.split('::')[0]
         print(rss_url)
             
-        if 'http:' in rss_url or 'https:' in rss_url: feedurl = rss_url # Proper rss feed. Use feedparser to get the data
-        elif 'oauth.reddit.com' in rss_url: # Use reddit's api as rss feeds are blocked
+        if 'oauth.reddit.com' in rss_url: # Use reddit's api as rss feeds are blocked
             clientid = os.environ['clientid'] # Details here https://www.reddit.com/prefs/apps
             clientpass = os.environ['clientpass']
             rusername = os.environ['rusername']
@@ -78,6 +77,8 @@ for rss_category in config['rssurl']:
             rss2json[rss_category_renamed][rss_url]['feed'] = dict()
             rss2json[rss_category_renamed][rss_url]['entries'] = [{'title': x['data']['title'], 'summary': x['data']['selftext'], 'link': x['data']['url_overridden_by_dest'], 'author': 'None'} for x in entries if time_now-x['data']['created']<maxPublishTime*60]
             rss2json[rss_category_renamed][rss_url]['feed']['title'] = 'Reddit - TIL'
+
+        elif 'http:' in rss_url or 'https:' in rss_url: feedurl = rss_url # Proper rss feed. Use feedparser to get the data
             
         else: feedurl = f"https://news.google.com/rss/search?q=allinurl:{rss_url}+when:{hrsTime}h&ceid=IN:en&hl=en-IN&gl=IN" # Use Google News url (https://newscatcherapi.com/blog/google-news-rss-search-parameters-the-missing-documentaiton)
         print(feedurl)   
