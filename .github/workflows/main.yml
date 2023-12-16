@@ -34,10 +34,15 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install feedparser numpy torchaudio omegaconf ipython
+          pip install feedparser numpy torchaudio omegaconf ipython requests
           
       - name: Execute Python script # Run the app.py
         run: python main.py
+        env: 
+          clientid: ${{ secrets.clientid }}
+          clientpass: ${{ secrets.clientpass }}
+          rusername: ${{ secrets.rusername }}
+          ruserpass: ${{ secrets.ruserpass }}
         timeout-minutes: 20
       
       - name: Push Changes Back To Repo
