@@ -1,4 +1,4 @@
-import feedparser, re, time, json
+import feedparser, re, time, json, requests
 # import numpy as np
 # import torch
 # from omegaconf import OmegaConf
@@ -58,7 +58,27 @@ for rss_category in config['rssurl']:
     for rss_url_full in config['rssurl'][rss_category]:
         rss_url = rss_url_full.split('::')[0]
         print(rss_url)
+            
         if 'http:' in rss_url or 'https:' in rss_url: feedurl = rss_url # Proper rss feed. Use feedparser to get the data
+        elif 'oauth.reddit.com' in rss_url: # Use reddit's api as rss feeds are blocked
+            clientid = os.environ['clientid'] # Details here https://www.reddit.com/prefs/apps
+            clientpass = os.environ['clientpass']
+            rusername = os.environ['rusername']
+            ruserpass = os.environ['ruserpass']
+            
+            client_auth = requests.auth.HTTPBasicAuth(clientid, clientpass) # HowTo - https://www.reddit.com/dev/api/#GET_top
+            post_data = {"grant_type": "password", "username": rusername, "password": ruserpass}
+            rheaders = {"User-Agent": "personalscript/0.1 by regstuff"}
+            response = requests.post("https://www.reddit.com/api/v1/access_token", auth=client_auth, data=post_data, headers=rheaders)
+            toke = response.json()
+            rheaders = {"Authorization": f"bearer {toke['access_token']}", "User-Agent": "personalscript/0.1 by regstuff"}
+            response = requests.get("https://oauth.reddit.com/r/jokes/top", headers=rheaders)
+            entries = response.json()['data']['children']
+            rss2json[rss_category_renamed][rss_url] = dict()
+            rss2json[rss_category_renamed][rss_url]['feed'] = dict()
+            rss2json[rss_category_renamed][rss_url]['entries'] = [{'title': x['data']['title'], 'summary': x['data']['selftext'], 'link': x['data']['url_overridden_by_dest'], 'author': 'None'} for x in entries if time_now-x['data']['created']<maxPublishTime*60]
+            rss2json[rss_category_renamed][rss_url]['feed']['title'] = 'Reddit - TIL'
+            
         else: feedurl = f"https://news.google.com/rss/search?q=allinurl:{rss_url}+when:{hrsTime}h&ceid=IN:en&hl=en-IN&gl=IN" # Use Google News url (https://newscatcherapi.com/blog/google-news-rss-search-parameters-the-missing-documentaiton)
         print(feedurl)   
         try: 
@@ -67,7 +87,7 @@ for rss_category in config['rssurl']:
             print('done')
         except: print('Unable to get rss feed from', rss_url)
         
-        if rss_feed.status == 200: 
+        if if 'oauth.reddit.com' not in rss_url and rss_feed.status == 200: 
             print('status is 200')
             rss2json[rss_category_renamed][rss_url] = dict()
             rss2json[rss_category_renamed][rss_url]['feed'] = dict()
