@@ -76,7 +76,8 @@ for rss_category in config['rssurl']:
             print('REDDIT ENTRIES', entries)
             rss2json[rss_category_renamed][rss_url] = dict()
             rss2json[rss_category_renamed][rss_url]['feed'] = dict()
-            rss2json[rss_category_renamed][rss_url]['entries'] = [{'title': x['data']['title'], 'summary': x['data']['selftext'], 'link': x['data']['url_overridden_by_dest'], 'author': 'None'} for x in entries if time_now-x['data']['created']<maxPublishTime*60]
+            if '.json' not in rss_url: rss2json[rss_category_renamed][rss_url]['entries'] = [{'title': x['data']['title'], 'summary': x['data']['selftext'], 'link': x['data']['url_overridden_by_dest'], 'author': 'None'} for x in entries if time_now-x['data']['created']<maxPublishTime*60]
+            else: rss2json[rss_category_renamed][rss_url]['entries'] = [{'title': x['data']['title'], 'summary': x['data']['selftext'], 'link': x['data']['url'], 'author': 'None'} for x in entries if time_now-x['data']['created']<maxPublishTime*60]
             rss2json[rss_category_renamed][rss_url]['feed']['title'] = 'Reddit - TIL'
 
         elif 'http:' in rss_url or 'https:' in rss_url: feedurl = rss_url # Proper rss feed. Use feedparser to get the data
