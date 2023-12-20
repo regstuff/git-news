@@ -71,7 +71,7 @@ for rss_category in config['rssurl']:
             response = requests.post("https://www.reddit.com/api/v1/access_token", auth=client_auth, data=post_data, headers=rheaders)
             toke = response.json()
             rheaders = {"Authorization": f"bearer {toke['access_token']}", "User-Agent": "personalscript/0.1 by regstuff"}
-            response = requests.get("https://oauth.reddit.com/r/todayilearned/top", headers=rheaders)
+            response = requests.get(rss_url, headers=rheaders)
             entries = response.json()['data']['children']
             print('REDDIT ENTRIES', entries)
             rss2json[rss_category_renamed][rss_url] = dict()
