@@ -105,16 +105,16 @@ for rss_category in config['rssurl']:
                     if time_now - time.mktime(entry['published_parsed']) < maxPublishTime*60: # Only add entries within maxPublishedTime
                         entry_dict = dict()
                         if 'title' in entry: 
-                            entry_dict['title'] = entry['title']
-                            if '- Swarajya' in entry_dict['title']: entry_dict['title'] = entry_dict['title'].split('- Swarajya')[0].strip()
-                            elif '- CNN International' in entry_dict['title']: entry_dict['title'] = entry_dict['title'].split('- CNN International')[0].strip()
+                            entry_dict['title'] = re.sub(r'https?://\S+', '', entry['title'].replace('`', ''))
+                            if '- Swarajya' in entry_dict['title']: entry_dict['title'] = re.sub(r'https?://\S+', '', entry['title'].replace('`', '')).split('- Swarajya')[0].strip()
+                            elif '- CNN International' in entry_dict['title']: entry_dict['title'] = re.sub(r'https?://\S+', '', entry['title'].replace('`', '')).split('- CNN International')[0].strip()
                             if tts_text == f'New catgeory started. {rss_category}.': tts_text += f'New article. {entry_dict["title"]}'
                             else: tts_text = f'New article. {entry_dict["title"]}'
                         else: entry_dict['title'] = 'None'
                         if 'summary' in entry: 
-                            entry_dict['summary'] = re.sub(r'<.*?>', '', entry['summary'])
-                            if 'Swarajya' in entry_dict['summary']: entry_dict['summary'] = entry_dict['summary'].split('Swarajya')[0].strip()
-                            elif 'CNN International' in entry_dict['summary']: entry_dict['summary'] = entry_dict['summary'].split('CNN International')[0].strip()
+                            entry_dict['summary'] = re.sub(r'<.*?>', '', re.sub(r'https?://\S+', '', entry['summary'].replace('`', '')))
+                            if 'Swarajya' in entry_dict['summary']: entry_dict['summary'] = re.sub(r'https?://\S+', '', entry['summary'].replace('`', '')).split('Swarajya')[0].strip()
+                            elif 'CNN International' in entry_dict['summary']: entry_dict['summary'] = re.sub(r'https?://\S+', '', entry['summary'].replace('`', '')).split('CNN International')[0].strip()
                             summ_len = len(entry_dict['summary'].split(' '))
                             if summ_len > 45: entry_dict['summary'] = ' '.join(entry_dict['summary'].split(' ')[:45]) + '...'
                             tts_text += f'{entry_dict["summary"]}'
