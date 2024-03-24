@@ -156,5 +156,3 @@ with open('rss2json.js', 'w') as f: # Dump json into file
 # audio_obj = Audio(data=audio_array, rate=sample_rate)
 # with open('output.mp3', 'wb') as f: f.write(audio_obj.data)
 # print('File saved')
-    
-
