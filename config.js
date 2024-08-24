@@ -12,6 +12,6 @@ const config = {
     'History': ['https://phys.org/rss-feed/science-news/archaeology-fossils'],
     'News': ['https://indianexpress.com/print/front-page/feed/', 'https://www.livemint.com/rss/elections', 'swarajyamag.com::all([x not in entry["link"] for x in ["/movies/", "/newsletters/"]])'], // 'https://feeds.a.dj.com/rss/RSSWorldNews.xml',            
     'Reddit': ['https://oauth.reddit.com/r/todayilearned/top', 'https://oauth.reddit.com/.json'],
-    'Sport':['edition.cnn.com%20sport'],
+    'Sport':[],
     },
 };
