@@ -65,7 +65,7 @@ time_now = time.time()
 tts_text = ''
 
 for rss_category in config['rssurl']:
-    print('New categroy started:', rss_category)        
+    print('New category started:', rss_category)        
     tts_text = f'New catgeory started. {rss_category}.'
     rss_category_renamed = rss_category.replace('/','_') # If category name has /, class and id names in html will break
     rss2json[rss_category_renamed] = dict()
