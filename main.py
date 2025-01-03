@@ -1,37 +1,49 @@
 import feedparser, re, time, json, requests, os
-# import numpy as np
-# import torch
-# from omegaconf import OmegaConf
-# from IPython.display import Audio, display
+from datetime import datetime
 
-# print('Loading Silero models')
+""" FOR IAS NEWS HEADLINES """
+def get_url():
+  today = datetime.today()
+  formatted_date = today.strftime("%d-%b-%Y").lower()
+  url = f"https://testbook.com/ias-preparation/upsc-current-affairs-for-{formatted_date}"
+  return url
 
-# torch.hub.download_url_to_file('https://raw.githubusercontent.com/snakers4/silero-models/master/models.yml', 'latest_silero_models.yml', progress=False)
-# models = OmegaConf.load('latest_silero_models.yml')
-# print('Downloaded YAML of Silero models')
+def fetch_html(url):
+    """Fetch HTML content from a URL."""
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an error for bad status codes
+        return response.text
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching the URL: {e}")
+        return None
 
+def clean_html(html):
+  html = html.replace('</li>', ' ')
+  html = re.sub(r'<.*?>', '', html)
+  html = re.sub(r'\s+', ' ', html)
+  html = re.sub(r'^ ', '', html)
+  return html
 
-# language = 'en'
-# model_id = 'v3_en'
-# device = torch.device('cpu')
-# model, example_text = torch.hub.load(repo_or_dir='snakers4/silero-models', model='silero_tts', language=language, speaker=model_id)
-# model.to(device)  # gpu or cpu
+def parse_html(html_content):
+    all_headlines = []
+    sections = html_content.split('</tr>')[1:]
+    print(len(sections))
+    for s in sections:
+      # print(s)
+      columns = s.split('</td>')
+      if len(columns) > 2:
+        headline = columns[-3].split('</strong></p>')[0]
+        headline = clean_html(headline)
+        # print(columns[-3])
+        desc = columns[-3].split('</strong></p>', 1)[1]
+        desc = clean_html(desc)
+        link = columns[-2].split('</a>')[0]
+        link = link.split('href="')[-1].split('"')[0]
+        all_headlines.append({'title': headline, 'desc': desc, 'link': link})
+        return all_headlines
 
-# print('Loaded Silero models. Configuring voice')
-
-# sample_rate = 24000
-# speaker = "en_24"
-# put_accent=False
-# put_yo=False
-# example_text = 'Tom Brady. New blood test more convenient for measuring important omega-3 levels'
-
-# audio = model.apply_tts(text=example_text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
-# audio_obj = Audio(audio, rate=sample_rate)
-# with open('output.mp3', 'wb') as f: f.write(audio_obj.data)
-
-# print('Example output.mp3 done.')
-
-# all_audios = []
+""" END OF IAS NEWS HEADLINES """
 
 print('Loading config.js')
 
@@ -51,10 +63,22 @@ time_now = time.time()
 tts_text = ''
 
 for rss_category in config['rssurl']:
-    print(rss_category)
+    print(rss_category)        
     tts_text = f'New catgeory started. {rss_category}.'
     rss_category_renamed = rss_category.replace('/','_') # If category name has /, class and id names in html will break
     rss2json[rss_category_renamed] = dict()
+
+    if rss_category == 'News':
+        url = get_url()
+        print('IAS URL:', url)
+        html_content = fetch_html(url).split('<p><strong>Headlines of the Day</strong></p>')[1]
+        all_headlines = parse_html(html_content)
+        rss_url = 'testbook'
+        rss2json[rss_category_renamed][rss_url] = dict()
+        rss2json[rss_category_renamed][rss_url]['feed'] = dict()
+        rss2json[rss_category_renamed][rss_url]['entries'] = [{'title': x['title'], 'summary': x['desc'], 'link': x['link'], 'author': 'None'} for x in all_headlines]
+        rss2json[rss_category_renamed][rss_url]['feed']['title'] = 'Testbook'
+    
     for rss_url_full in config['rssurl'][rss_category]:
         rss_url = rss_url_full.split('::')[0]
         print(rss_url)
@@ -149,12 +173,6 @@ with open('rss2json.js', 'w') as f: # Dump json into file
     print('Writing JSON to file')
     f.write(f'const rss2json = {json.dumps(rss2json)};') # Write to a file that Javascript can use
 
-# print('Starting audio object concatenation')
-# audio_array = np.concatenate((all_audios)) 
-# print('Finished audio object concatenation')
 
-# audio_obj = Audio(data=audio_array, rate=sample_rate)
-# with open('output.mp3', 'wb') as f: f.write(audio_obj.data)
-# print('File saved')
     
 
