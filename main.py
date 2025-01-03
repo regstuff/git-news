@@ -43,7 +43,7 @@ def parse_html(html_content):
         dict_to_append = {'title': headline, 'desc': desc, 'link': link}
         all_headlines.append(dict_to_append)
         print(dict_to_append)
-        return all_headlines
+    return all_headlines
 
 """ END OF IAS NEWS HEADLINES """
 
