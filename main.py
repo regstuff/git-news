@@ -40,7 +40,9 @@ def parse_html(html_content):
         desc = clean_html(desc)
         link = columns[-2].split('</a>')[0]
         link = link.split('href="')[-1].split('"')[0]
-        all_headlines.append({'title': headline, 'desc': desc, 'link': link})
+        dict_to_append = {'title': headline, 'desc': desc, 'link': link}
+        all_headlines.append(dict_to_append)
+        print(dict_to_append)
         return all_headlines
 
 """ END OF IAS NEWS HEADLINES """
@@ -63,7 +65,7 @@ time_now = time.time()
 tts_text = ''
 
 for rss_category in config['rssurl']:
-    print(rss_category)        
+    print('New categroy started:', rss_category)        
     tts_text = f'New catgeory started. {rss_category}.'
     rss_category_renamed = rss_category.replace('/','_') # If category name has /, class and id names in html will break
     rss2json[rss_category_renamed] = dict()
