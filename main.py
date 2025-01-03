@@ -81,7 +81,7 @@ for rss_category in config['rssurl']:
         rss2json[rss_category_renamed][rss_url]['feed'] = dict()
         rss2json[rss_category_renamed][rss_url]['entries'] = [{'title': x['title'], 'summary': x['desc'], 'link': x['link'], 'author': 'None'} for x in all_headlines]
         rss2json[rss_category_renamed][rss_url]['feed']['title'] = 'Testbook'
-      Exception as e: print('TESTBOOK NEWS EXTRACTION FAILED WITH ERROR:', str(e))
+      except Exception as e: print('TESTBOOK NEWS EXTRACTION FAILED WITH ERROR:', str(e))
     
     for rss_url_full in config['rssurl'][rss_category]:
         rss_url = rss_url_full.split('::')[0]
