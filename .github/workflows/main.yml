@@ -34,7 +34,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install feedparser numpy torchaudio omegaconf ipython requests
+          pip install feedparser
           
       - name: Execute Python script # Run the app.py
         run: python main.py
