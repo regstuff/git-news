@@ -8,7 +8,7 @@ const config = {
     //'Food/Health': ['https://phys.org/rss-feed/biology-news/agriculture/'], //'https://www.science.org/rss/news_current.xml', 
     'Nature': ['http://feeds.feedburner.com/DiscoverLivingWorld', 'http://feeds.feedburner.com/DiscoverEnvironment',],
     'Business': [],//['https://www.wired.com/feed/category/business/latest/rss', 'https://www.economist.com/finance-and-economics/rss.xml', ],
-    'Foss/Self-hosting': [],// 'https://rss.beehiiv.com/feeds/iiTciQgHPG.xml'],
+    'Foss/Self-hosting': ['https://api.theregister.com/api/v1/article?query=tag:offbeat&orderBy=published&site_id=2&remapper=rss&limit=25', 'https://api.theregister.com/api/v1/article?query=tag:software&orderBy=published&site_id=2&remapper=rss&limit=25'],// 'https://rss.beehiiv.com/feeds/iiTciQgHPG.xml'],
     //'History': ['https://phys.org/rss-feed/science-news/archaeology-fossils'],
     // 'News': ['https://www.livemint.com/rss/industry', 'swarajyamag.com::all([x not in entry["link"] for x in ["/movies/", "/newsletters/"]])'], // 'https://feeds.a.dj.com/rss/RSSWorldNews.xml',            
     // 'Reddit': ['https://oauth.reddit.com/r/todayilearned/top', 'https://oauth.reddit.com/.json'],
